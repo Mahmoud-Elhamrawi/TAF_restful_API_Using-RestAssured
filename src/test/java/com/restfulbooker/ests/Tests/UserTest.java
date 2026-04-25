@@ -2,6 +2,8 @@ package com.restfulbooker.ests.Tests;
 
 import com.restfulBooker.Models.MessagePOJO;
 import com.restfulBooker.Models.UserPOJO;
+import io.qameta.allure.Feature;
+import io.qameta.allure.Story;
 import io.restassured.response.Response;
 import org.testng.annotations.Test;
 import tools.jackson.databind.ObjectMapper;
@@ -12,8 +14,11 @@ import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.IsEqual.equalTo;
 
+@Feature("Registration TC")
 public class UserTest {
-    @Test
+
+    @Story("Registration with valid data")
+    @Test(description = "registration with valid data")
     public void validRegistrationTC() {
 
         UserPOJO userPOJO = new UserPOJO("admin", "password123");
@@ -33,6 +38,7 @@ public class UserTest {
     }
 
 
+    @Story("Registration with invalid data")
     @Test(description = "registration with invalid data")
     public void inValidRegistrationTC() {
 

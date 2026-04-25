@@ -2,6 +2,8 @@ package com.restfulbooker.ests.Tests;
 
 import com.restfulBooker.API.BookReq;
 import com.restfulBooker.Models.BookPOJO;
+import io.qameta.allure.Feature;
+import io.qameta.allure.Story;
 import io.restassured.response.Response;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -11,7 +13,10 @@ import static com.restfulBooker.API.BookReq.*;
 import static com.restfulBooker.Steps.BookData.*;
 import static com.restfulBooker.Steps.UserData.getToken;
 
+@Feature("Book Endpoints")
 public class BookTest {
+
+    @Story("create new book")
     @Test(description = "create new book with valid data")
     public void CreateNewBookTC() {
         BookPOJO bookPOJO = createNewBookData();
@@ -27,6 +32,7 @@ public class BookTest {
         Assert.assertEquals(res.body().jsonPath().get("booking.bookingdates.checkin"), bookPOJO.getBookingdates().getCheckin());
     }
 
+    @Story("create new book with missing data")
     @Test(description = "not able to create a new book with missing  data")
     public void inValidCreateNewBookTC() {
         BookPOJO bookPOJO = createNewBookWithMissingData();
@@ -40,7 +46,7 @@ public class BookTest {
         Assert.assertEquals(res.asString(), "Internal Server Error");
     }
 
-
+    @Story("get book by id")
     @Test(description = "get book by id")
     public void getBookByIdTC() {
 
@@ -56,6 +62,7 @@ public class BookTest {
         Assert.assertEquals(res.body().jsonPath().get("firstname"), bookPOJO.getFirstname());
     }
 
+    @Story("update book by id")
     @Test(description = "update book by id")
     public void updateBookByIdTC() {
         BookPOJO bookPOJO = createNewBookData();
@@ -80,6 +87,7 @@ public class BookTest {
     }
 
 
+    @Story("delete book by id")
     @Test(description = "delete book by id")
     public void deleteBookByIdTC() {
         BookPOJO bookPOJO = createNewBookData();
@@ -95,6 +103,7 @@ public class BookTest {
         Assert.assertEquals(res.asString(), "Created");
     }
 
+    @Story("get book after deleted")
     @Test(description = "get book after deleted")
     public void getBookAfterDeletedTC() {
         BookPOJO bookPOJO = createNewBookData();
